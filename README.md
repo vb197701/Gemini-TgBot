@@ -11,16 +11,20 @@ pip install -r requirements.txt
 ```
 2. 在[BotFather](https://t.me/BotFather)获取Telegram Bot API
 3. 在[Google AI Studio](https://makersuite.google.com/app/apikey)获取Gemini API keys
-4. 运行机器人，执行以下命令：
+4. 获取你的 Telegram user id 作为管理员 ID
+5. 运行机器人，执行以下命令：
 ```
-python src/main.py ${Telegram 机器人 API} ${Gemini API 密钥}
+export TELEGRAM_BOT_API_KEY={Telegram 机器人 API}
+export GEMINI_API_KEYS={Gemini API 密钥}
+export ADMIN_USER_IDS={你的 Telegram user id}
+python src/main.py
 ```
 默认会使用 `data/bot.db` 保存用户选择的模型和最近聊天记录。你也可以通过 `--db-path` 指定数据库路径。
 
 ## (2)使用 Docker 部署
-### 使用构建好的镜像(x86 only)
+### 使用构建好的镜像
 ```
-docker run -d --restart=always -v $(pwd)/data:/app/data -e TELEGRAM_BOT_API_KEY={Telegram 机器人 API} -e GEMINI_API_KEYS={Gemini API 密钥} qwqhthqwq/gemini-telegram-bot:main
+docker run -d --restart=always -v $(pwd)/data:/app/data -e TELEGRAM_BOT_API_KEY={Telegram 机器人 API} -e GEMINI_API_KEYS={Gemini API 密钥} -e ADMIN_USER_IDS={你的 Telegram user id} qwqhthqwq/gemini-telegram-bot:main
 ```
 ### 自行构建
 1. 在[BotFather](https://t.me/BotFather)获取Telegram Bot API
@@ -39,20 +43,17 @@ docker build -t gemini_tg_bot .
 ```
 6. 运行镜像
 ```
-docker run -d --restart=always -v $(pwd)/data:/app/data -e TELEGRAM_BOT_API_KEY={Telegram 机器人 API} -e GEMINI_API_KEYS={Gemini API 密钥} gemini_tg_bot
+docker run -d --restart=always -v $(pwd)/data:/app/data -e TELEGRAM_BOT_API_KEY={Telegram 机器人 API} -e GEMINI_API_KEYS={Gemini API 密钥} -e ADMIN_USER_IDS={你的 Telegram user id} gemini_tg_bot
 ```
-
-## (3)使用 Zeabur 部署
-点击下方按钮一键部署
-
-[![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/V2870T)
-
 
 # 使用方法
 1. 私聊中直接发送你的问题即可
 2. 群组中使用 **/gemini +你的问题**，支持图片
 3. 删除对话的历史记录请使用 **/clear**
 4. 选择或切换调用的模型请使用 **/model**
+5. 未授权用户首次使用会自动提交访问申请，管理员可通过私聊按钮批准或拒绝
+6. 管理员可使用 **/access** 查看已授权用户，并通过按钮撤销授权
+7. 管理员可使用 **/accessrequest** 开关新的授权申请
 
 
 # 参考信息

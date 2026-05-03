@@ -10,5 +10,6 @@ COPY ./src/ .
 
 ENV TELEGRAM_BOT_API_KEY=""
 ENV GEMINI_API_KEYS=""
+ENV ADMIN_USER_IDS=""
 
-CMD ["sh", "-c", "python -u main.py ${TELEGRAM_BOT_API_KEY} ${GEMINI_API_KEYS}"]
+CMD ["python", "-u", "main.py"]

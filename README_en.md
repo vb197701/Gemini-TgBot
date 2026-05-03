@@ -11,16 +11,20 @@ pip install -r requirements.txt
 ```
 2. Obtain Telegram Bot API at [BotFather](https://t.me/BotFather)
 3. Get Gemini API keys from [Google AI Studio](https://makersuite.google.com/app/apikey)
-4. To run the bot, execute:
+4. Get your Telegram user id to use as the administrator id.
+5. To run the bot, execute:
 ```
-python src/main.py ${Telegram Bot API} ${Gemini API keys}
+export TELEGRAM_BOT_API_KEY={Telegram Bot API}
+export GEMINI_API_KEYS={Gemini API keys}
+export ADMIN_USER_IDS={Your Telegram user id}
+python src/main.py
 ```
 By default, the bot stores selected models and recent chat history in `data/bot.db`. You can override this with `--db-path`.
 
 ## (2)Deploy Using Docker
-### Use the built image(x86 only)
+### Use the built image
 ```
-docker run -d --restart=always -v $(pwd)/data:/app/data -e TELEGRAM_BOT_API_KEY={Telegram Bot API} -e GEMINI_API_KEYS={Gemini API Key} qwqhthqwq/gemini-telegram-bot:main
+docker run -d --restart=always -v $(pwd)/data:/app/data -e TELEGRAM_BOT_API_KEY={Telegram Bot API} -e GEMINI_API_KEYS={Gemini API Key} -e ADMIN_USER_IDS={Your Telegram user id} qwqhthqwq/gemini-telegram-bot:main
 ```
 ### build by yourself
 1. Get Telegram Bot API at [BotFather](https://t.me/BotFather)
@@ -39,20 +43,17 @@ docker build -t gemini_tg_bot .
 ```
 6. run
 ```
-docker run -d --restart=always -v $(pwd)/data:/app/data -e TELEGRAM_BOT_API_KEY={Telegram Bot API} -e GEMINI_API_KEYS={Gemini API Key} gemini_tg_bot
+docker run -d --restart=always -v $(pwd)/data:/app/data -e TELEGRAM_BOT_API_KEY={Telegram Bot API} -e GEMINI_API_KEYS={Gemini API Key} -e ADMIN_USER_IDS={Your Telegram user id} gemini_tg_bot
 ```
-
-## (3)Deploy on Zeabur
-Click on the button below for a one-click deployment.
-
-[![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/V2870T)
-
 
 # How to Use
 1. Send your questions directly in a private chat.
 2. In a group chat, use **/gemini** + your question. Photo is supported.
 3. You can use the **/clear** command to delete the current conversation history.
 4. You can use the **/model** command to choose or switch the model.
+5. Unauthorized users automatically submit an access request on first use. Administrators can approve or reject requests with private chat buttons.
+6. Administrators can use **/access** to list approved users, then revoke access with buttons.
+7. Administrators can use **/accessrequest** to toggle new access requests.
 
 
 # Reference
