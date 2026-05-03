@@ -8,8 +8,6 @@ from telebot import TeleBot
 from config import conf
 from utils import init_user, save_turn
 
-model_1                 =       conf["model_1"]
-model_2                 =       conf["model_2"]
 error_info              =       conf["error_info"]
 before_generate_info    =       conf["before_generate_info"]
 download_pic_notify     =       conf["download_pic_notify"]
